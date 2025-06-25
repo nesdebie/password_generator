@@ -1,6 +1,6 @@
 # password_generator
 
-A small program to explore how Rust works by generating random passwords.
+A small program to explore how Rust works by generating random passwords with a minimum size of 16.
 
 ## Setup
 ```
