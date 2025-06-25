@@ -4,14 +4,14 @@ use std::io::{self, Write};
 fn main() {
     println!("Rust Password Generator");
 
-    let length = loop {
-        let input = read_input("Enter password length (min. 16): ").trim().to_string();
+    let length = {
+        let input = read_input("Enter password length or press Enter for default (min 16): ").trim().to_string();
 
         match input.parse::<usize>() {
-            Ok(len) if len >= 16 => break len,
+            Ok(len) if len >= 16 => len,
             _ => {
-                println!("Invalid input. Please enter a number >= 16.");
-                continue;
+                println!("Using default length of 16.");
+                16
             }
         }
     };
