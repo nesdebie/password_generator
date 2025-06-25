@@ -1,5 +1,5 @@
 use rand::Rng;
-use std::io;
+use std::io::{self, Write};
 
 fn main() {
     println!("Rust Password Generator");
@@ -17,28 +17,33 @@ fn main() {
     };
 
     let password = generate_password(length);
-    println!("Generated password: {}", password);
+    println!("{}", password);
 }
 
 fn read_input(prompt: &str) -> String {
-    println!("{}", prompt);
+    print!("{}", prompt);
+    io::stdout().flush().expect("Failed to flush stdout");
+
     let mut input = String::new();
     io::stdin()
         .read_line(&mut input)
         .expect("Failed to read line");
-    input
+    input.trim_end().to_string()
 }
 
 fn generate_password(length: usize) -> String {
-    let charset = "abcdefghijklmnopqrstuvwxyz\
-                   ABCDEFGHIJKLMNOPQRSTUVWXYZ\
-                   0123456789\
-                   !@#$%^&*()-_=+[]{};:,.<>/?";
+    let charset: Vec<char> = "abcdefghijklmnopqrstuvwxyz\
+                              ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+                              0123456789\
+                              !@#$%^&*()-_=+[]{};:,.<>/?"
+        .chars()
+        .collect();
     let mut rng = rand::thread_rng();
     (0..length)
         .map(|_| {
             let idx = rng.gen_range(0..charset.len());
-            charset.chars().nth(idx).unwrap()
+            charset[idx]
         })
         .collect()
 }
+

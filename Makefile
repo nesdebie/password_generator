@@ -25,4 +25,4 @@ clean:
 
 re: clean all
 
-.PHONY: all clean re cargo
+.PHONY: all clean re run
