@@ -11,7 +11,7 @@ $(TARGET):
 	@if [ ! -f $(TARGET)/Cargo.toml ]; then \
 		echo "Creating new Cargo project..."; \
 		cargo new $(TARGET) --bin; \
-		echo 'rand = "0.8.0"' >> $(TARGET)/Cargo.toml; \
+		cat ./dependencies >> $(TARGET)/Cargo.toml; \
 	fi
 	cp $(SRC) $(TARGET)/src/
 	cd $(TARGET) && cargo build
